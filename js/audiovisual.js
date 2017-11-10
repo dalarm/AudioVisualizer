@@ -1,5 +1,139 @@
+/*
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 ctx.fillStyle = 'green';
 ctx.fillRect(10, 10, 100, 100);
+*/
+
+/* * * * * * 
+ * New code *
+ * * * * * * 
+ * Important !!! To run this you have to host via local server using python.
+ * Command prompt instructions:
+ * cd to your directory (equivalent of ls on bash is 'dir') then type the following:
+ * $ python3 -m http.server
+ * Then, on your browser paste this into the url bar: 
+ * http://localhost:8000/
+ */
+
+var canvas = document.querySelector("canvas");
+var musicButton = document.getElementById("playbtn"); 
+var stopButton = document.getElementById("stopbtn"); 
+var myMusic = document.getElementById("music");
+myMusic.crossOrigin = "anonymous";
+var isPlaying = false; 
+
+function toggleMusic() {
+	musicButton.onclick = function() {
+		if(!isPlaying) {
+			myMusic.play(); 
+			isPlaying = true; 
+		}
+		else {
+			myMusic.pause(); 
+			isPlaying = false; 
+		} 
+	}
+	stopButton.onclick = function() {
+		myMusic.pause(); 
+		isPlaying = false; 
+		myMusic.currentTime = 0; 
+	}
+}
+
+
+/*
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight; 
+*/
+var context = canvas.getContext('2d');
+
+// Extract data from audio source with AnalyserNode
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // AudioContext
+var audiosrc = audioCtx.createMediaElementSource(myMusic); // Takes music
+var analyser = audioCtx.createAnalyser(); 	// Create AnalyserNode
+var distortion = audioCtx.createWaveShaper(); 
+var gainNode = audioCtx.createGain();
+var biquadFilter = audioCtx.createBiquadFilter();
+
+// navigator.getUserMedia(constraints, successCallback, errorCallback)
+navigator.getUserMedia (
+	// constraints
+	{audio: true},
+
+
+	// successCallback
+	function(stream) {
+
+		/* Don't really need this part because it's for taking mic input */
+		//source = audioCtx.createMediaStreamSource(stream); 
+		//source.connect(analyser); 
+
+		audiosrc.connect(analyser); 
+
+		analyser.connect(distortion); 
+		distortion.connect(biquadFilter); 
+		biquadFilter.connect(gainNode); 
+		gainNode.connect(audioCtx.destination); 
+
+		visualize(stream); 
+	},
+
+	// errorCallback
+	function(err) {
+		console.log("The following error occurred: " + err.name);
+	} 
+);
+
+function visualize(stream) {
+	WIDTH = canvas.width; 
+	HEIGHT = canvas.height; 
+
+	analyser.fftSize = 2048; 
+	var bufferLength = analyser.frequencyBinCount; 
+	console.log(bufferLength); 
+	var dataArray = new Uint8Array(bufferLength); 	// create an array to store data
+	
+	context.clearRect(0, 0, WIDTH, HEIGHT); 
+
+	function draw() {
+
+	drawVisual = requestAnimationFrame(draw); 
+
+	analyser.getByteTimeDomainData(dataArray); // get waveform data and put into array
+
+	context.fillStyle = 'rgb(200, 200, 200)'; // draw wave with canvas
+	context.fillRect(0, 0, WIDTH, HEIGHT);
+
+	context.lineWidth = 2;
+	context.strokeStyle = 'rgb(0, 0, 0)';
+
+	context.beginPath();
+
+	var sliceWidth = WIDTH * 1.0 / bufferLength; 
+	var x = 0; 
+
+	for(var i = 0; i < bufferLength; i++) {
+   
+        var v = dataArray[i] / 128.0;
+        var y = v * HEIGHT/2;
+
+        if(i === 0) {
+          context.moveTo(x, y);
+        } else {
+          context.lineTo(x, y);
+        }
+
+        x += sliceWidth;
+      }
+
+	context.lineTo(canvas.width, canvas.height/2);
+    context.stroke();
+
+	}; 
+	
+	draw();
+}
+
+toggleMusic(); 
