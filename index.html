@@ -2,14 +2,30 @@
 <html lang="{{ site.lang | default: "en-US" }}">
 
 <head>
+	<title>Audio Visualizer Demo</title>
+
+	<!-- Meta tags -->
 	<meta name="referrer" content="origin" />
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
-<body>
-<canvas id="canvas"></canvas>
 
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+<body>
+
+	<!-- Change the .mp3 to a file local to your computer -->
+	<audio id="music" src="06 - Mary, Did You Know_.mp3"></audio>
+	<button type="button" i class="fa fa-play btn btn-primary" id="playbtn"> Play/Pause</button>
+	<button type="button" i class="fa fa-stop btn btn-danger" id="stopbtn"> Stop</button>
+
+	<div id="canvas"> 
+		<canvas>
+		</canvas>
+	</div>
 
 </body>
 
