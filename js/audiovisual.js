@@ -1,7 +1,6 @@
 /*
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-
 ctx.fillStyle = 'green';
 ctx.fillRect(10, 10, 100, 100);
 */
@@ -21,7 +20,6 @@ var canvas = document.querySelector("canvas");
 var musicButton = document.getElementById("playbtn"); 
 var stopButton = document.getElementById("stopbtn"); 
 var myMusic = document.getElementById("music");
-myMusic.crossOrigin = "anonymous";
 var isPlaying = false; 
 
 function toggleMusic() {
@@ -72,11 +70,7 @@ navigator.getUserMedia (
 
 		audiosrc.connect(analyser); 
 
-		analyser.connect(distortion); 
-		distortion.connect(biquadFilter); 
-		biquadFilter.connect(gainNode); 
-		gainNode.connect(audioCtx.destination); 
-
+		analyser.connect(audioCtx.destination); 
 		visualize(stream); 
 	},
 
