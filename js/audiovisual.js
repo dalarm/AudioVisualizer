@@ -22,6 +22,17 @@ var stopButton = document.getElementById("stopbtn");
 var myMusic = document.getElementById("music");
 var isPlaying = false; 
 
+
+input.onchange = function(e){
+  var sound = document.getElementById('music');
+  sound.src = URL.createObjectURL(this.files[0]);
+  // not really needed in this exact case, but since it is really important in other cases,
+  // don't forget to revoke the blobURI when you don't need it
+  sound.onend = function(e) {
+    URL.revokeObjectURL(this.src);
+  }
+}
+
 function toggleMusic() {
 	musicButton.onclick = function() {
 		if(!isPlaying) {
