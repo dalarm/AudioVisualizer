@@ -52,10 +52,14 @@ function toggleMusic() {
 }
 
 
-/*
+/* 
+ * Uncomment this code to increase the canvas size to the current browser size
+ *
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight; 
 */
+
+
 var context = canvas.getContext('2d');
 
 // Extract data from audio source with AnalyserNode
@@ -91,6 +95,9 @@ navigator.getUserMedia (
 	} 
 );
 
+/* 
+ * Visualizer function for waveform
+ *
 function visualize(stream) {
 	WIDTH = canvas.width; 
 	HEIGHT = canvas.height; 
@@ -108,9 +115,11 @@ function visualize(stream) {
 
 	analyser.getByteTimeDomainData(dataArray); // get waveform data and put into array
 
-	context.fillStyle = 'rgb(200, 200, 200)'; // draw wave with canvas
+	// Set canvas properties
+	context.fillStyle = 'rgb(200, 200, 200)'; 
 	context.fillRect(0, 0, WIDTH, HEIGHT);
 
+	// Set waveform properties
 	context.lineWidth = 2;
 	context.strokeStyle = 'rgb(0, 0, 0)';
 
@@ -140,5 +149,50 @@ function visualize(stream) {
 	
 	draw();
 }
+*/
+
+
+/*
+ * Visualizer for bars 
+ */
+
+function visualize(stream) {
+	WIDTH = canvas.width; 
+	HEIGHT = canvas.height; 
+
+	var bufferLength = analyser.frequencyBinCount; 
+	var dataArray = new Uint8Array(bufferLength); 
+	console.log(bufferLength); 
+
+	context.clearRect(0, 0, WIDTH, HEIGHT); 
+
+	function draw() {
+		var drawVisual = requestAnimationFrame(draw); 
+
+		analyser.getByteFrequencyData(dataArray); 
+
+		// Set canvas properties 
+		context.fillStyle = 'lightgray'; 
+		context.fillRect(0, 0, WIDTH, HEIGHT);
+
+		var barWidth = (WIDTH / bufferLength) * 2.5; 
+		var barHeight; 
+		var x = 0; 
+
+		// Set bar color property
+		context.fillStyle = 'red';
+
+		// Render the bars 
+		for (var i = 0; i <  bufferLength; i++) {
+			barHeight = dataArray[i]; 
+			context.fillRect(x, HEIGHT - barHeight/2, barWidth, barHeight); 
+
+			x += barWidth + 1; 			
+		}
+	}	
+	draw(); 
+
+}
+
 
 toggleMusic(); 
