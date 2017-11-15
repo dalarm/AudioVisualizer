@@ -1,1 +1,103 @@
-lol
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0; 
+    padding: 2em; 
+}
+
+/* Player Container */
+
+.player-container {
+    width: 450px; 
+    height: 200px; 
+    box-shadow: 2px 2px 6px 2px #eee;
+    color: #ffffff;
+    font-size: 12px; 
+    background: #002D3C;
+}
+
+/* Logo */
+
+.logo {
+    float: left; 
+    width: 120px; 
+    height: 100px;
+    position: relative; 
+}
+
+.logo img {
+    float: top;
+    bottom: 4px;
+    width: 120px; 
+    height: 100px;
+    position: absolute;
+    opacity: 0.8;
+}
+
+/* Player */
+
+.player {
+    float: right; 
+    margin-top: 1em;
+    margin-right: 2em;  
+}
+
+/* Song Title */
+
+.song-title {
+    width: 300px; 
+    padding: 5px 0 5px 0; 
+}
+
+/* Slider */
+.slider {
+    width: 300px; 
+    float: left; 
+    margin-left: 0;
+}
+
+/* Time */
+
+.time {
+    float: left; 
+    font-size: 10px; 
+}
+
+.duration {
+    float: right; 
+    font-size: 10px; 
+}
+
+/* Canvas */ 
+
+
+
+#Canvas {
+    width: 450px; 
+    height: 100px; 
+    border: 1px solid black; 
+}
+
+
+/* Controls */ 
+
+.controls {
+    text-align: center; 
+}
+
+.fa-stack-1x {
+    margin-left: 1px; 
+    color: #000;
+}
+
+.fa-backward {
+    margin-right: 10px; 
+    margin-left: 0;
+}
+
+.fa-circle {
+    color: gray; 
+}
+
+
+
+

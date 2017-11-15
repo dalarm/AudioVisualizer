@@ -172,18 +172,18 @@ function visualize(stream) {
 		analyser.getByteFrequencyData(dataArray); 
 
 		// Set canvas properties 
-		context.fillStyle = 'lightgray'; 
+		context.fillStyle = '#002D3C'; 
 		context.fillRect(0, 0, WIDTH, HEIGHT);
 
-		var barWidth = (WIDTH / bufferLength) * 2.5; 
+		var barWidth = (WIDTH / bufferLength) * 3.5; 
 		var barHeight; 
-		var x = 0; 
-
+	
 		// Set bar color property
-		context.fillStyle = 'red';
+		context.fillStyle = '#00CCFF';
 
 		// Render the bars 
 		for (var i = 0; i <  bufferLength; i++) {
+			x = i * 2;
 			barHeight = dataArray[i]; 
 			context.fillRect(x, HEIGHT - barHeight/2, barWidth, barHeight); 
 
