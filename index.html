@@ -39,6 +39,17 @@
 			</div>
 			<!-- Player -->
 			<div class="player">
+				<select id="color" name="color" onchange="draw()">
+					<option value="red">Red</option>
+					<option value="blue">Blue</option>
+					<option value="black">Black</option>
+				</select>
+				
+				<select id="template" name="template" onchange="templates()">
+					<option value="bars">Bars</option>
+					<option value="wave">Wave</option>
+				</select>
+				
 				<div id="songTitle" class="song-title">song title</div>
 				<input type="range" id="songSlider" class="slider" min="0" step="1" onchange="seekSong()" />
 				<div>

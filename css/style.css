@@ -55,6 +55,17 @@ body {
     margin-left: 0;
 }
 
+/*Design Options*/
+#color{
+	position: absolute;
+	margin-left: 18%;
+}
+
+#template{
+	position: absolute;
+	margin-left: 14%;
+}
+
 /* Time */
 
 .time {

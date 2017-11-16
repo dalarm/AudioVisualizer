@@ -70,7 +70,24 @@ var distortion = audioCtx.createWaveShaper();
 var gainNode = audioCtx.createGain();
 var biquadFilter = audioCtx.createBiquadFilter();
 
+
+//Get the template 
+var designs = document.getElementById("template");
+var selectedDes = designs.options[designs.selectedIndex].value;
+	
+//Setting up the array to store data from sound file.
+
+WIDTH = canvas.width; 
+HEIGHT = canvas.height; 
+
+var bufferLength = analyser.frequencyBinCount; 
+var dataArray = new Uint8Array(bufferLength); 
+console.log(bufferLength); 
+
+context.clearRect(0, 0, WIDTH, HEIGHT); 
+	
 // navigator.getUserMedia(constraints, successCallback, errorCallback)
+
 navigator.getUserMedia (
 	// constraints
 	{audio: true},
@@ -86,7 +103,10 @@ navigator.getUserMedia (
 		audiosrc.connect(analyser); 
 
 		analyser.connect(audioCtx.destination); 
-		visualize(stream); 
+		if(selectedDes == 'wave')
+			wvisualize(); 
+		else if(selectedDes =='bars')
+			bvisualize();
 	},
 
 	// errorCallback
@@ -96,77 +116,79 @@ navigator.getUserMedia (
 );
 
 /* 
+ * Template Designs
+ */
+ 
+function templates(){
+
+designs = document.getElementById("template");
+selectedDes = designs.options[designs.selectedIndex].value;
+
+	if(selectedDes == 'wave'){
+		wvisualize(); 
+	}
+	else if(selectedDes == 'bars'){
+		bvisualize();
+	}
+ }
+ 
+ 
+/* 
  * Visualizer function for waveform
- *
-function visualize(stream) {
-	WIDTH = canvas.width; 
-	HEIGHT = canvas.height; 
-
-	analyser.fftSize = 2048; 
-	var bufferLength = analyser.frequencyBinCount; 
-	console.log(bufferLength); 
-	var dataArray = new Uint8Array(bufferLength); 	// create an array to store data
-	
-	context.clearRect(0, 0, WIDTH, HEIGHT); 
-
+ */
+ 
+function wvisualize() {
 	function draw() {
+		var colors = document.getElementById("color");
+		var selectedCol = colors.options[colors.selectedIndex].value;
+		drawVisual = requestAnimationFrame(draw); 
 
-	drawVisual = requestAnimationFrame(draw); 
+		analyser.getByteTimeDomainData(dataArray); // get waveform data and put into array
 
-	analyser.getByteTimeDomainData(dataArray); // get waveform data and put into array
+		// Set canvas properties
+		context.fillStyle = 'rgb(200, 200, 200)'; 
+		context.fillRect(0, 0, WIDTH, HEIGHT);
+		// Set waveform properties
+		context.lineWidth = 2;
+		//context.strokeStyle = 'rgb(0, 0, 0)';
+		context.strokeStyle = selectedCol;
+		context.beginPath();
 
-	// Set canvas properties
-	context.fillStyle = 'rgb(200, 200, 200)'; 
-	context.fillRect(0, 0, WIDTH, HEIGHT);
+		var sliceWidth = WIDTH * 1.0 / bufferLength; 
+		var x = 0; 
 
-	// Set waveform properties
-	context.lineWidth = 2;
-	context.strokeStyle = 'rgb(0, 0, 0)';
+		for(var i = 0; i < bufferLength; i++) {
+	   
+			var v = dataArray[i] / 128.0;
+			var y = v * HEIGHT/2;
 
-	context.beginPath();
+			if(i === 0) {
+			  context.moveTo(x, y);
+			} else {
+			  context.lineTo(x, y);
+			}
 
-	var sliceWidth = WIDTH * 1.0 / bufferLength; 
-	var x = 0; 
+			x += sliceWidth;
+		  }
 
-	for(var i = 0; i < bufferLength; i++) {
-   
-        var v = dataArray[i] / 128.0;
-        var y = v * HEIGHT/2;
-
-        if(i === 0) {
-          context.moveTo(x, y);
-        } else {
-          context.lineTo(x, y);
-        }
-
-        x += sliceWidth;
-      }
-
-	context.lineTo(canvas.width, canvas.height/2);
-    context.stroke();
+		context.lineTo(canvas.width, canvas.height/2);
+		context.stroke();
 
 	}; 
 	
 	draw();
 }
-*/
 
 
 /*
  * Visualizer for bars 
  */
-
-function visualize(stream) {
-	WIDTH = canvas.width; 
-	HEIGHT = canvas.height; 
-
-	var bufferLength = analyser.frequencyBinCount; 
-	var dataArray = new Uint8Array(bufferLength); 
-	console.log(bufferLength); 
-
-	context.clearRect(0, 0, WIDTH, HEIGHT); 
-
+ 
+ 
+function bvisualize() {
 	function draw() {
+		var colors = document.getElementById("color");
+		var selectedCol = colors.options[colors.selectedIndex].value;
 		var drawVisual = requestAnimationFrame(draw); 
 
 		analyser.getByteFrequencyData(dataArray); 
@@ -179,8 +201,8 @@ function visualize(stream) {
 		var barHeight; 
 	
 		// Set bar color property
-		context.fillStyle = '#00CCFF';
-
+		//context.fillStyle = '#00CCFF';
+		context.fillStyle = selectedCol;
 		// Render the bars 
 		for (var i = 0; i <  bufferLength; i++) {
 			x = i * 2;
