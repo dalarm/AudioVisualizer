@@ -8,11 +8,11 @@ body {
 
 .player-container {
     width: 450px; 
-    height: 200px; 
+    height: 215px; 
     box-shadow: 2px 2px 6px 2px #eee;
     color: #ffffff;
     font-size: 12px; 
-    background: #002D3C;
+    background: black; 
 }
 
 /* Logo */
@@ -26,7 +26,7 @@ body {
 
 .logo img {
     float: top;
-    bottom: 4px;
+    bottom: 5%;
     width: 120px; 
     height: 100px;
     position: absolute;
@@ -38,21 +38,76 @@ body {
 .player {
     float: right; 
     margin-top: 1em;
-    margin-right: 2em;  
+    margin-right: 1em;  
 }
 
 /* Song Title */
+#songTitle {
+    display: block;
+    margin-right: 0;
+    width: 50px;
+}
 
 .song-title {
-    width: 300px; 
+    width: 50px; 
     padding: 5px 0 5px 0; 
 }
 
-/* Slider */
+/* Sliders */
 .slider {
+    -webkit-appearance: none;
+    -moz-appearance: none; 
     width: 300px; 
+    height: 20px; 
     float: left; 
     margin-left: 0;
+    background: darkgray;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    height: 20px; 
+    width: 20px; 
+    background: #002D3C; 
+    opacity: 0.7;
+    cursor: pointer;  
+}
+
+.volumeBar {
+    margin-right: 10%; 
+}
+
+.audioSlider {
+    -webkit-appearance: none;
+    -moz-appearance: none; 
+    width: 100%; 
+    height: 5px; 
+    float: left; 
+    background: white;
+}
+
+.audioSlider::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    float: left; 
+    height: 5px; 
+    width: 10px; 
+    background: red; 
+    opacity: 0.7;
+    border-radius: 5px;
+    cursor: pointer;  
+}
+
+/*Design Options*/
+#color{
+    position: relative;
+    float: right;
+}
+
+#template{
+    position: relative;
+    float: right; 
 }
 
 /*Design Options*/
@@ -80,8 +135,6 @@ body {
 
 /* Canvas */ 
 
-
-
 #Canvas {
     width: 450px; 
     height: 100px; 
@@ -92,22 +145,35 @@ body {
 /* Controls */ 
 
 .controls {
-    text-align: center; 
+    text-align: left;
+    margin-left: 10%; 
 }
 
-.fa-stack-1x {
-    margin-left: 1px; 
-    color: #000;
+.btn-outline-secondary {
+    border: none; 
+    margin-right: 3px;
 }
 
-.fa-backward {
-    margin-right: 10px; 
-    margin-left: 0;
+.btn-outline-secondary:hover {
+    background: black; 
 }
 
-.fa-circle {
-    color: gray; 
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
 }
+
+.volIconDown {
+    float: left; 
+}
+
+.volIconUp {
+    float: right; 
+}
+
+
+
+
 
 
 

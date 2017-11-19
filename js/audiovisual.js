@@ -44,11 +44,20 @@ function toggleMusic() {
 			isPlaying = false; 
 		} 
 	}
+	
 	stopButton.onclick = function() {
 		myMusic.pause(); 
 		isPlaying = false; 
 		myMusic.currentTime = 0; 
 	}
+}
+
+function seekSong() {
+
+}
+
+function adjustVolume() { 
+	myMusic.volume = document.getElementById("audioSlider").value; 
 }
 
 
@@ -183,7 +192,6 @@ function wvisualize() {
 /*
  * Visualizer for bars 
  */
- 
  
 function bvisualize() {
 	function draw() {
