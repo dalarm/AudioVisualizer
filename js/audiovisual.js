@@ -21,16 +21,72 @@ var musicButton = document.getElementById("playbtn");
 var stopButton = document.getElementById("stopbtn"); 
 var myMusic = document.getElementById("music");
 var isPlaying = false; 
+var seconds, minutes, diff, total, currentTime;
+
+
+
+function convertTime(secs){
+	if(secs >= 60){
+		 minutes = Math.floor(secs / 60);
+		 diff = minutes * 60;
+         seconds = Math.floor(secs - diff);
+		 if(seconds == 0){
+			 total = minutes + ":0" + seconds;
+			 return total; 
+		 }
+		 else{
+				if(seconds < 10){
+					return minutes + ":0" + seconds;
+				}
+				total = minutes + ":" + seconds;
+				return total;
+		 }
+	 }
+	
+	else{
+		 seconds = Math.floor(secs)
+		 if(seconds < 10){
+			 return "0" + ":0" + seconds;
+		 }
+		 total = "0" + ":" + seconds;
+		 return total;
+	 }
+}
 
 
 input.onchange = function(e){
-  var sound = document.getElementById('music');
-  sound.src = URL.createObjectURL(this.files[0]);
+  myMusic.src = URL.createObjectURL(this.files[0]);
+  
+  // The duration function works only if we use the eventHandler loadedmetadata or else
+	  // it returns NaN when we use .duration. 
+  // .duration only returns total amount of seconds, so I calculated that using a function i made above.
+  myMusic.addEventListener('loadedmetadata', function() {
+     var time = myMusic.duration;
+	 var timer = document.getElementById("duration");
+	 time = convertTime(time);
+	 timer.innerHTML = time;
+	});
   // not really needed in this exact case, but since it is really important in other cases,
   // don't forget to revoke the blobURI when you don't need it
-  sound.onend = function(e) {
+  myMusic.onend = function(e) {
     URL.revokeObjectURL(this.src);
   }
+}
+
+function setCurrentTime(currentTime) {
+/*	var converted;
+	currentTime += 1; 
+	converted = convertTime(currentTime);
+	
+*/
+// Smh, turns out the audio api comes with a "currentTime" property. 
+
+	var current;
+	current = convertTime(myMusic.currentTime);
+	console.log(current);
+    var timer = document.getElementById("currentTime");
+	timer.innerHTML = current;
+	
 }
 
 function toggleMusic() {
@@ -38,6 +94,7 @@ function toggleMusic() {
 		if(!isPlaying) {
 			myMusic.play(); 
 			isPlaying = true; 
+			setInterval(setCurrentTime, 1000);
 		}
 		else {
 			myMusic.pause(); 
