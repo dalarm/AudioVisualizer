@@ -9,12 +9,12 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
 
 	<!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
 	 crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
 
 	<body>
 
@@ -22,25 +22,34 @@
 		<!--	<audio id="music" src="Coffee.mp3"></audio>  -->
 		<input type="file" id="input" />
 		<audio id="music"></audio>
-		<button type="button" i class="fa fa-play btn btn-primary" id="playbtn"> Play/Pause</button>
-		<button type="button" i class="fa fa-stop btn btn-danger" id="stopbtn"> Stop</button>
-
 
 		<!-- Player Container -->
 		<div class="player-container">
 			<!-- Canvas -->
 			<div id=canvasContainer>
-					<canvas id="Canvas"></canvas>
+				<canvas id="Canvas"></canvas>
 			</div>
 
 			<!-- Logo -->
 			<div class="logo">
 				<img src="images/speakers.jpeg" alt="speakers" />
 			</div>
+
 			<!-- Player -->
 			<div class="player">
+				<select id="color" name="color" onchange="draw()">
+					<option value="red">Red</option>
+					<option value="blue">Blue</option>
+					<option value="black">Black</option>
+				</select>
+
+				<select id="template" name="template" onchange="templates()">
+					<option value="bars">Bars</option>
+					<option value="wave">Wave</option>
+				</select>
+
 				<div id="songTitle" class="song-title">song title</div>
-				<input type="range" id="songSlider" class="slider" min="0" step="1" onchange="seekSong()" />
+				<input type="range" id="songSlider" class="slider" min="0" max="1" step="0.01" onchange="seekSong()" />
 				<div>
 					<div id="currentTime" class="time">0:00</div>
 					<div id="duration" class="duration">0:00</div>
@@ -48,19 +57,16 @@
 
 				<!-- Controls -->
 				<div class="controls">
-					<span class="fa-stack">
-						<i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
-						<i class="fa fa-backward fa-stack-1x" aria-hidden="true"></i>
-					</span>
-					<span class="fa-stack fa-lg">
-						<i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
-						<i class="fa fa-play fa-stack-1x" aria-hidden="true"></i>
-					</span>
-					<span class="fa-stack">
-						<i class="fa fa-circle fa-stack-2x" aria-hidden="true"></i>
-						<i class="fa fa-forward fa-stack-1x" aria-hidden="true"></i>
-					</span>
-
+					<div class="btn-group">
+						<button id="playbtn" class="btn btn-outline-secondary fa fa-play" aria-hidden="true"></button>
+						<button id="stopbtn" class="btn btn-outline-secondary fa fa-stop" aria-hidden="true"></button>
+					</div>
+					<div class="volumeBar">
+						<i class="volIconDown fa fa-volume-off" aria-hidden="true"></i>
+						<i class="volIconUp fa fa-volume-up" aria-hidden="true"></i>
+						<input type="range" id="audioSlider" class="audioSlider" min="0" max="1" step="0.01" ondrag="adjustVolume()" onchange="adjustVolume()"
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
