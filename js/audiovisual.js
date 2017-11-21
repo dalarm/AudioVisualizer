@@ -8,12 +8,6 @@ ctx.fillRect(10, 10, 100, 100);
 /* * * * * * 
  * New code *
  * * * * * * 
- * Important !!! To run this you have to host via local server using python.
- * Command prompt instructions:
- * cd to your directory (equivalent of ls on bash is 'dir') then type the following:
- * $ python3 -m http.server
- * Then, on your browser paste this into the url bar: 
- * http://localhost:8000/
  */
 
 $(document).ready(function(){
@@ -33,8 +27,18 @@ var canvas = document.querySelector("canvas");
 var musicButton = document.getElementById("playbtn");
 var stopButton = document.getElementById("stopbtn");
 var myMusic = document.getElementById("music");
+var mySlider = document.getElementById("songSlider"); 
+var myAudioSlider = document.getElementById("audioSlider"); 
 var isPlaying = false; 
 var seconds, minutes, diff, total, currentTime;
+
+// Slider will update time relative to the position of the slider thumb
+myAudioSlider.value = 100; 
+mySlider.value = 0; 
+mySlider.addEventListener("change", function () {
+	var seekTo = myMusic.duration * mySlider.value;
+	myMusic.currentTime = seekTo;
+});
 
 function convertTime(secs) {
 	if (secs >= 60) {
@@ -91,10 +95,13 @@ function setCurrentTime(currentTime) {
 	*/
 	// Smh, turns out the audio api comes with a "currentTime" property. 
 
-	var current;
+	var current, timer, updateSliderTo;
 	current = convertTime(myMusic.currentTime);
-	var timer = document.getElementById("currentTime");
+	timer = document.getElementById("currentTime");
 	timer.innerHTML = current;
+
+	updateSliderTo = myMusic.currentTime / myMusic.duration;
+	mySlider.value = updateSliderTo; 
 }
 
 function toggleMusic() {
@@ -102,7 +109,7 @@ function toggleMusic() {
 		if (!isPlaying) {
 			myMusic.play();
 			isPlaying = true;
-			setInterval(setCurrentTime, 1000);
+			setInterval(setCurrentTime, 250); 
 		}
 		else {
 			myMusic.pause();
@@ -118,22 +125,14 @@ function toggleMusic() {
 	}
 }
 
-function seekSong() {
-
-}
-
 function adjustVolume() {
 	myMusic.volume = document.getElementById("audioSlider").value;
 }
 
-
-/* 
- * Uncomment this code to increase the canvas size to the current browser size
- *
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight; 
-*/
-
+/* * * * * 
+ * Canvas *
+ * * * * *
+ */
 
 var context = canvas.getContext('2d');
 
@@ -144,7 +143,6 @@ var analyser = audioCtx.createAnalyser(); 	// Create AnalyserNode
 var distortion = audioCtx.createWaveShaper();
 var gainNode = audioCtx.createGain();
 var biquadFilter = audioCtx.createBiquadFilter();
-
 
 //Get the template 
 var designs = document.getElementById("template");
