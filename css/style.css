@@ -4,6 +4,10 @@ body {
     padding: 2em; 
 }
 
+body i {
+    font-family: 'FontAwesome';
+}
+
 /* Player Container */
 
 .player-container {
@@ -159,6 +163,10 @@ body {
 .volIconUp {
     float: right; 
 }
+
+
+
+
 
 
 
