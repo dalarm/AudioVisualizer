@@ -72,7 +72,8 @@ function convertTime(secs) {
 
 input.onchange = function (e) {
 	myMusic.src = URL.createObjectURL(this.files[0]);
-
+	var file = e.currentTarget.files[0];
+	$("#songTitle").text((file.name.slice(0,-4)));
 	// The duration function works only if we use the eventHandler loadedmetadata or else
 	// it returns NaN when we use .duration. 
 	// .duration only returns total amount of seconds, so I calculated that using a function i made above.
@@ -88,6 +89,8 @@ input.onchange = function (e) {
 		URL.revokeObjectURL(this.src);
 	}
 }
+
+
 
 function setCurrentTime(currentTime) {
 	/*	var converted;
