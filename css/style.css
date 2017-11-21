@@ -48,13 +48,21 @@ body i {
 /* Song Title */
 #songTitle {
     display: block;
-    margin-right: 0;
-    width: 50px;
+    position: relative; 
+    bottom: 5%; 
+    padding: 0; 
+    margin-bottom: 5%;
+    width: 60%;
+    height: 15px; 
+    text-overflow: ellipsis; 
+    overflow: hidden; 
 }
 
 .song-title {
     width: 50px; 
     padding: 5px 0 5px 0; 
+    text-overflow: ellipsis; 
+    overflow: hidden; 
 }
 
 /* Sliders */

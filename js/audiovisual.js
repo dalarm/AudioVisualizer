@@ -22,6 +22,7 @@ $(document).ready(function(){
 		if(($(playButton).hasClass("fa-pause")) == true){ 
 			$(playButton).toggleClass('fa-pause'); 
 		}
+		mySlider.value = 0;
 	});
 });  
 
@@ -37,10 +38,11 @@ var seconds, minutes, diff, total, currentTime;
 // Slider will update time relative to the position of the slider thumb
 myAudioSlider.value = 100; 
 mySlider.value = 0; 
-mySlider.addEventListener("change", function () {
-	var seekTo = myMusic.duration * mySlider.value;
+
+function seekSong() {
+	seekTo = myMusic.duration * mySlider.value;
 	myMusic.currentTime = seekTo;
-});
+}
 
 function convertTime(secs) {
 	if (secs >= 60) {
@@ -96,7 +98,6 @@ input.onchange = function (e) {
 }
 
 
-
 function setCurrentTime(currentTime) {
 	/*	var converted;
 		currentTime += 1; 
@@ -109,9 +110,6 @@ function setCurrentTime(currentTime) {
 	current = convertTime(myMusic.currentTime);
 	timer = document.getElementById("currentTime");
 	timer.innerHTML = current;
-
-	updateSliderTo = myMusic.currentTime / myMusic.duration;
-	mySlider.value = updateSliderTo; 
 }
 
 function toggleMusic() {
@@ -119,11 +117,11 @@ function toggleMusic() {
 		if (!isPlaying) {
 			myMusic.play();
 			isPlaying = true;
-			setInterval(setCurrentTime, 250); 
+			setInterval(updateSlider, 3000);
+			setInterval(setCurrentTime, 250);
 		}
 		else {
 			myMusic.pause();
-			//musicButton
 			isPlaying = false;
 		}
 	}
@@ -133,6 +131,10 @@ function toggleMusic() {
 		isPlaying = false;
 		myMusic.currentTime = 0;
 	}
+}
+function updateSlider() {
+	updateSliderTo = myMusic.currentTime / myMusic.duration;
+	mySlider.value = updateSliderTo; 
 }
 
 function adjustVolume() {
