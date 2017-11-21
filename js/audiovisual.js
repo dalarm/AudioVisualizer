@@ -16,6 +16,13 @@ $(document).ready(function(){
 	});
 }); 
 
+$(document).ready(function(){
+	$('.fa-stop').click(function() {
+		var playButton = document.getElementById("play");
+		$(playButton).toggleClass('fa-pause'); 
+	});
+}); 
+
 var canvas = document.querySelector("canvas");
 var musicButton = document.getElementById("playbtn");
 var stopButton = document.getElementById("stopbtn");
@@ -92,6 +99,7 @@ function setCurrentTime(currentTime) {
 	current = convertTime(myMusic.currentTime);
 	timer = document.getElementById("currentTime");
 	timer.innerHTML = current;
+
 	updateSliderTo = myMusic.currentTime / myMusic.duration;
 	mySlider.value = updateSliderTo; 
 }
