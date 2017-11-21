@@ -22,6 +22,13 @@ $(document).ready(function(){
 	});
 }); 
 
+$(document).ready(function(){
+	$('.fa-stop').click(function() {
+		var playButton = document.getElementById("play");
+		$(playButton).toggleClass('fa-pause'); 
+	});
+}); 
+
 var canvas = document.querySelector("canvas");
 var musicButton = document.getElementById("playbtn");
 var stopButton = document.getElementById("stopbtn");
@@ -88,22 +95,6 @@ function setCurrentTime(currentTime) {
 	current = convertTime(myMusic.currentTime);
 	var timer = document.getElementById("currentTime");
 	timer.innerHTML = current;
-}
-
-function setCurrentTime(currentTime) {
-/*	var converted;
-	currentTime += 1; 
-	converted = convertTime(currentTime);
-	
-*/
-// Smh, turns out the audio api comes with a "currentTime" property. 
-
-	var current;
-	current = convertTime(myMusic.currentTime);
-	console.log(current);
-    var timer = document.getElementById("currentTime");
-	timer.innerHTML = current;
-	
 }
 
 function toggleMusic() {
