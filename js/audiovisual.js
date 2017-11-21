@@ -71,6 +71,11 @@ function convertTime(secs) {
 }
 
 input.onchange = function (e) {
+	var playButton = document.getElementById("play");
+		if(($(playButton).hasClass("fa-pause")) == true){ 
+			$(playButton).toggleClass('fa-pause'); 
+			isPlaying = false;
+		}
 	myMusic.src = URL.createObjectURL(this.files[0]);
 	var file = e.currentTarget.files[0];
 	$("#songTitle").text((file.name.slice(0,-4)));
@@ -118,7 +123,7 @@ function toggleMusic() {
 		}
 		else {
 			myMusic.pause();
-			musicButton
+			//musicButton
 			isPlaying = false;
 		}
 	}
