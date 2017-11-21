@@ -26,10 +26,8 @@ var canvas = document.querySelector("canvas");
 var musicButton = document.getElementById("playbtn");
 var stopButton = document.getElementById("stopbtn");
 var myMusic = document.getElementById("music");
-var isPlaying = false;
+var isPlaying = false; 
 var seconds, minutes, diff, total, currentTime;
-
-
 
 function convertTime(secs) {
 	if (secs >= 60) {
@@ -58,7 +56,6 @@ function convertTime(secs) {
 		return total;
 	}
 }
-
 
 input.onchange = function (e) {
 	myMusic.src = URL.createObjectURL(this.files[0]);
@@ -91,7 +88,22 @@ function setCurrentTime(currentTime) {
 	current = convertTime(myMusic.currentTime);
 	var timer = document.getElementById("currentTime");
 	timer.innerHTML = current;
+}
 
+function setCurrentTime(currentTime) {
+/*	var converted;
+	currentTime += 1; 
+	converted = convertTime(currentTime);
+	
+*/
+// Smh, turns out the audio api comes with a "currentTime" property. 
+
+	var current;
+	current = convertTime(myMusic.currentTime);
+	console.log(current);
+    var timer = document.getElementById("currentTime");
+	timer.innerHTML = current;
+	
 }
 
 function toggleMusic() {
