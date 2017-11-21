@@ -19,9 +19,11 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$('.fa-stop').click(function() {
 		var playButton = document.getElementById("play");
-		$(playButton).toggleClass('fa-pause'); 
+		if(($(playButton).hasClass("fa-pause")) == true){ 
+			$(playButton).toggleClass('fa-pause'); 
+		}
 	});
-}); 
+});  
 
 var canvas = document.querySelector("canvas");
 var musicButton = document.getElementById("playbtn");
