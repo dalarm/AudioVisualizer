@@ -1,7 +1,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    margin: 0; 
-    padding: 2em; 
+    margin: 0;
+    padding: 2em;
 }
 
 body i {
@@ -11,27 +11,27 @@ body i {
 /* Player Container */
 
 .player-container {
-    width: 450px; 
-    height: 215px; 
+    width: 450px;
+    height: 215px;
     box-shadow: 2px 2px 6px 2px #eee;
     color: #ffffff;
-    font-size: 12px; 
-    background: black; 
+    font-size: 12px;
+    background: black;
 }
 
 /* Logo */
 
 .logo {
-    float: left; 
-    width: 120px; 
+    float: left;
+    width: 120px;
     height: 100px;
-    position: relative; 
+    position: relative;
 }
 
 .logo img {
     float: top;
     bottom: 5%;
-    width: 120px; 
+    width: 120px;
     height: 100px;
     position: absolute;
     opacity: 0.8;
@@ -40,81 +40,81 @@ body i {
 /* Player */
 
 .player {
-    float: right; 
+    float: right;
     margin-top: 1em;
-    margin-right: 1em;  
+    margin-right: 1em;
 }
 
 /* Song Title */
 #songTitle {
     display: block;
-    position: relative; 
-    padding: 0; 
+    position: relative;
+    padding: 0;
     margin-bottom: 5%;
     width: 200px;
-    height: 15px; 
-    overflow: hidden; 
+    height: 15px;
+    overflow: hidden;
 }
 
 .song-title {
-    width: 50px; 
-    padding: 5px 0 5px 0; 
+    width: 50px;
+    padding: 5px 0 5px 0;
 }
 
 /* Sliders */
 .slider {
     -webkit-appearance: none;
-    -moz-appearance: none; 
-    width: 300px; 
-    height: 20px; 
-    float: left; 
+    -moz-appearance: none;
+    width: 300px;
+    height: 20px;
+    float: left;
     margin-left: 0;
     background: darkgray;
 }
 
 .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-    height: 20px; 
-    width: 2px; 
-    background: #002D3C; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 20px;
+    width: 2px;
+    background: #002D3C;
     opacity: 0.7;
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 .slider::slider-thumb {
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-    height: 20px; 
-    width: 2px; 
-    background: #002D3C; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 20px;
+    width: 2px;
+    background: #002D3C;
     opacity: 0.7;
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 .volumeBar {
-    margin-right: 10%; 
+    margin-right: 10%;
 }
 
 .audioSlider {
     -webkit-appearance: none;
-    -moz-appearance: none; 
-    width: 100%; 
-    height: 5px; 
-    float: left; 
+    -moz-appearance: none;
+    width: 100%;
+    height: 5px;
+    float: left;
     background: white;
 }
 
 .audioSlider::-webkit-slider-thumb {
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-    float: left; 
-    height: 5px; 
-    width: 10px; 
-    background: red; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    float: left;
+    height: 5px;
+    width: 10px;
+    background: red;
     opacity: 0.7;
     border-radius: 5px;
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 /*Design Options*/
@@ -125,44 +125,44 @@ body i {
 
 #template{
     position: relative;
-    float: right; 
+    float: right;
 }
 
 /* Time */
 
 .time {
-    float: left; 
-    font-size: 10px; 
+    float: left;
+    font-size: 10px;
 }
 
 .duration {
-    float: right; 
-    font-size: 10px; 
+    float: right;
+    font-size: 10px;
 }
 
-/* Canvas */ 
+/* Canvas */
 
 #Canvas {
-    width: 450px; 
-    height: 100px; 
-    border: 1px solid black; 
+    width: 450px;
+    height: 100px;
+    border: 1px solid black;
 }
 
 
-/* Controls */ 
+/* Controls */
 
 .controls {
     text-align: left;
-    margin-left: 10%; 
+    margin-left: 10%;
 }
 
 .btn-outline-secondary {
-    border: none; 
+    border: none;
     margin-right: 3px;
 }
 
 .btn-outline-secondary:hover {
-    background: black; 
+    background: black;
 }
 
 .btn:focus {
@@ -171,21 +171,9 @@ body i {
 }
 
 .volIconDown {
-    float: left; 
+    float: left;
 }
 
 .volIconUp {
-    float: right; 
+    float: right;
 }
-
-
-
-
-
-
-
-
-
-
-
-
