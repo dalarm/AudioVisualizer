@@ -5,39 +5,39 @@ ctx.fillStyle = 'green';
 ctx.fillRect(10, 10, 100, 100);
 */
 
-/* * * * * * 
+/* * * * * *
  * New code *
- * * * * * * 
+ * * * * * *
  */
 
 $(document).ready(function(){
 	$('.fa-play').click(function() {
-		$(this).toggleClass('fa-pause'); 
+		$(this).toggleClass('fa-pause');
 	});
-}); 
+});
 
 $(document).ready(function(){
 	$('.fa-stop').click(function() {
 		var playButton = document.getElementById("play");
-		if(($(playButton).hasClass("fa-pause")) == true){ 
-			$(playButton).toggleClass('fa-pause'); 
+		if(($(playButton).hasClass("fa-pause")) == true){
+			$(playButton).toggleClass('fa-pause');
 		}
 		mySlider.value = 0;
 	});
-});  
+});
 
 var canvas = document.querySelector("canvas");
 var musicButton = document.getElementById("playbtn");
 var stopButton = document.getElementById("stopbtn");
 var myMusic = document.getElementById("music");
-var mySlider = document.getElementById("songSlider"); 
-var myAudioSlider = document.getElementById("audioSlider"); 
-var isPlaying = false; 
+var mySlider = document.getElementById("songSlider");
+var myAudioSlider = document.getElementById("audioSlider");
+var isPlaying = false;
 var seconds, minutes, diff, total, currentTime;
 
 // Slider will update time relative to the position of the slider thumb
-myAudioSlider.value = 100; 
-mySlider.value = 0; 
+myAudioSlider.value = 100;
+mySlider.value = 0;
 
 function seekSong() {
 	seekTo = myMusic.duration * mySlider.value;
@@ -74,15 +74,15 @@ function convertTime(secs) {
 
 input.onchange = function (e) {
 	var playButton = document.getElementById("play");
-		if(($(playButton).hasClass("fa-pause")) == true){ 
-			$(playButton).toggleClass('fa-pause'); 
+		if(($(playButton).hasClass("fa-pause")) == true){
+			$(playButton).toggleClass('fa-pause');
 			isPlaying = false;
 		}
 	myMusic.src = URL.createObjectURL(this.files[0]);
 	var file = e.currentTarget.files[0];
 	$("#songTitle").text((file.name.slice(0,-4)));
 	// The duration function works only if we use the eventHandler loadedmetadata or else
-	// it returns NaN when we use .duration. 
+	// it returns NaN when we use .duration.
 	// .duration only returns total amount of seconds, so I calculated that using a function i made above.
 	myMusic.addEventListener('loadedmetadata', function () {
 		var time = myMusic.duration;
@@ -100,11 +100,11 @@ input.onchange = function (e) {
 
 function setCurrentTime(currentTime) {
 	/*	var converted;
-		currentTime += 1; 
+		currentTime += 1;
 		converted = convertTime(currentTime);
-		
+
 	*/
-	// Smh, turns out the audio api comes with a "currentTime" property. 
+	// Smh, turns out the audio api comes with a "currentTime" property.
 
 	var current, timer, updateSliderTo;
 	current = convertTime(myMusic.currentTime);
@@ -134,14 +134,14 @@ function toggleMusic() {
 }
 function updateSlider() {
 	updateSliderTo = myMusic.currentTime / myMusic.duration;
-	mySlider.value = updateSliderTo; 
+	mySlider.value = updateSliderTo;
 }
 
 function adjustVolume() {
 	myMusic.volume = document.getElementById("audioSlider").value;
 }
 
-/* * * * * 
+/* * * * *
  * Canvas *
  * * * * *
  */
@@ -156,7 +156,7 @@ var distortion = audioCtx.createWaveShaper();
 var gainNode = audioCtx.createGain();
 var biquadFilter = audioCtx.createBiquadFilter();
 
-//Get the template 
+//Get the template
 var designs = document.getElementById("template");
 var selectedDes = designs.options[designs.selectedIndex].value;
 
@@ -180,7 +180,7 @@ else if (selectedDes == 'bars')
 	bvisualize();
 
 
-/* 
+/*
  * Template Designs
  */
 
@@ -198,7 +198,7 @@ function templates() {
 }
 
 
-/* 
+/*
  * Visualizer function for waveform
  */
 
@@ -246,7 +246,7 @@ function wvisualize() {
 
 
 /*
- * Visualizer for bars 
+ * Visualizer for bars
  */
 
 function bvisualize() {
@@ -257,7 +257,7 @@ function bvisualize() {
 
 		analyser.getByteFrequencyData(dataArray);
 
-		// Set canvas properties 
+		// Set canvas properties
 		context.fillStyle = '#002D3C';
 		context.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -267,7 +267,7 @@ function bvisualize() {
 		// Set bar color property
 		//context.fillStyle = '#00CCFF';
 		context.fillStyle = selectedCol;
-		// Render the bars 
+		// Render the bars
 		for (var i = 0; i < bufferLength; i++) {
 			x = i * 2;
 			barHeight = dataArray[i];
@@ -281,4 +281,4 @@ function bvisualize() {
 }
 
 
-toggleMusic(); 
+toggleMusic();
