@@ -114,22 +114,26 @@ function setCurrentTime(currentTime) {
 
 function toggleMusic() {
 	musicButton.onclick = function () {
-		if (!isPlaying) {
-			myMusic.play();
-			isPlaying = true;
-			setInterval(updateSlider, 3000);
-			setInterval(setCurrentTime, 250);
-		}
-		else {
-			myMusic.pause();
-			isPlaying = false;
-		}
+		audioCtx.resume().then(() => {
+			if (!isPlaying) {
+				myMusic.play();
+				isPlaying = true;
+				setInterval(updateSlider, 3000);
+				setInterval(setCurrentTime, 250);
+			}
+			else {
+				myMusic.pause();
+				isPlaying = false;
+			}
+		})
 	}
 
 	stopButton.onclick = function () {
-		myMusic.pause();
-		isPlaying = false;
-		myMusic.currentTime = 0;
+		audioCtx.suspend().then(() => {
+			myMusic.pause();
+			isPlaying = false;
+			myMusic.currentTime = 0;
+		})
 	}
 }
 function updateSlider() {
