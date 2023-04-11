@@ -1,16 +1,15 @@
 import { initializer as visualizerInit } from "./visualizer";
 import { setCurrentTime } from "./time";
+import { initializer as volumeInit } from "./volume";
 import Canvas from "./canvas";
 import FileInput from "./fileInput";
 
 let canvas = document.querySelector("canvas");
 let myMusic = document.getElementById("music");
 let mySlider = document.getElementById("songSlider");
-let myAudioSlider = document.getElementById("audioSlider");
 let isPlaying = false;
 
 // Slider will update time relative to the position of the slider thumb
-myAudioSlider.value = 100;
 mySlider.value = 0;
 
 function seekSong() {
@@ -26,6 +25,7 @@ function updateSlider() {
 let drawnCanvas = new Canvas(canvas, myMusic);
 new FileInput();
 visualizerInit(drawnCanvas, canvas);
+volumeInit();
 
 // Media controls
 const playButton = document.getElementById('playbtn');

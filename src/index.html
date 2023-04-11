@@ -40,7 +40,7 @@
 
 		<!-- Player -->
 		<div class="player">
-			<select id="color" name="color" onchange="draw()">
+			<select id="color" name="color">
 				<option value="red">Red</option>
 				<option value="blue">Blue</option>
 				<option value="black">Black</option>
@@ -52,7 +52,7 @@
 			</select>
 
 			<div id="songTitle" class="song-title">song title</div>
-			<input type="range" id="songSlider" class="slider" min="0" max="1" step="0.01" onchange="seekSong()" />
+			<input type="range" id="songSlider" class="slider" min="0" max="1" step="0.01" />
 			<div>
 				<div id="currentTime" class="time">0:00</div>
 				<div id="duration" class="duration">0:00</div>
@@ -71,8 +71,7 @@
 				<div class="volumeBar">
 					<i class="volIconDown fa fa-volume-off" aria-hidden="true"></i>
 					<i class="volIconUp fa fa-volume-up" aria-hidden="true"></i>
-					<input type="range" id="audioSlider" class="audioSlider" min="0" max="1" step="0.01" ondrag="adjustVolume()" onchange="adjustVolume()"
-					/>
+					<input type="range" id="audioSlider" class="audioSlider" min="0" max="1" step="0.01"/>
 				</div>
 			</div>
 		</div>
