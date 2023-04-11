@@ -1,5 +1,6 @@
 import { initializer as visualizerInit } from "./visualizer";
 import Canvas from "./canvas";
+import FileInput from "./fileInput";
 
 let canvas = document.querySelector("canvas");
 let myMusic = document.getElementById("music");
@@ -45,31 +46,6 @@ function convertTime(secs) {
 	}
 }
 
-input.onchange = function (e) {
-	var playButton = document.getElementById("play");
-	if(($(playButton).hasClass("fa-pause")) == true){
-		$(playButton).toggleClass('fa-pause');
-		isPlaying = false;
-	}
-	myMusic.src = URL.createObjectURL(this.files[0]);
-	var file = e.currentTarget.files[0];
-	$("#songTitle").text((file.name.slice(0,-4)));
-	// The duration function works only if we use the eventHandler loadedmetadata or else
-	// it returns NaN when we use .duration.
-	// .duration only returns total amount of seconds, so I calculated that using a function i made above.
-	myMusic.addEventListener('loadedmetadata', function () {
-		var time = myMusic.duration;
-		var timer = document.getElementById("duration");
-		time = convertTime(time);
-		timer.innerHTML = time;
-	});
-	// not really needed in this exact case, but since it is really important in other cases,
-	// don't forget to revoke the blobURI when you don't need it
-	myMusic.onend = function (e) {
-		URL.revokeObjectURL(this.src);
-	}
-}
-
 function setCurrentTime(currentTime) {
 	/*	var converted;
 		currentTime += 1;
@@ -91,6 +67,7 @@ function updateSlider() {
 }
 
 let drawnCanvas = new Canvas(canvas, myMusic);
+new FileInput();
 visualizerInit(drawnCanvas, canvas);
 
 // Media controls
