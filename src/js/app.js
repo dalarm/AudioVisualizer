@@ -1,12 +1,5 @@
 import { initializer as visualizerInit } from "./visualizer";
 
-/*
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-ctx.fillStyle = 'green';
-ctx.fillRect(10, 10, 100, 100);
-*/
-
 /**
  * NEW STUFF START
  */
@@ -17,18 +10,8 @@ let myAudioSlider = document.getElementById("audioSlider");
 let isPlaying = false;
 let seconds, minutes, diff, total, currentTime;
 
-function cleanUp() {
-	playButton.removeEventListener('click', classToggler);
-	stopButton.removeEventListener('click', classToggler);
-}
-
 const playButton = document.getElementById('playbtn');
 const stopButton = document.getElementById('stopbtn');
-
-let classToggler = (className, element) => {
-	// console.log("class toggler called: ", element);
-	element.classList.toggle(className);
-}
 
 // Event listeners for functionality changes
 playButton.addEventListener('click', toggleMusicPlay);
@@ -37,7 +20,7 @@ stopButton.addEventListener('click', toggleMusicStop);
 function toggleMusicPlay() {
 	// Toggle play button icon
 	let playIcon = document.getElementById('play');
-	classToggler('fa-pause', playIcon);
+	playIcon.classList.toggle('fa-pause');
 
 	// Resume the music
 	audioCtx.resume().then(() => {
@@ -57,7 +40,7 @@ function toggleMusicStop() {
 	// Reset play button icon
 	let playIcon = document.getElementById('play');
 	if (playIcon.classList.contains('fa-pause')) {
-		classToggler('fa-pause', playIcon);
+		playIcon.classList.remove('fa-pause');
 		mySlider.value = 0;
 	}
 
