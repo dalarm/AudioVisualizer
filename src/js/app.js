@@ -1,9 +1,9 @@
-import { initializer as volumeInit } from "./volume";
 import Canvas from "./canvas";
 import FileInput from "./fileInput";
 import Media from "./media";
 import Slider from "./slider";
 import Visualizer from './visualizer';
+import Volume from './volume';
 
 function init() {
 	let drawnCanvas = new Canvas();
@@ -12,7 +12,7 @@ function init() {
 
 	new FileInput(media);
 	new Visualizer(drawnCanvas);
-	volumeInit();
+	new Volume();
 }
 
 init();
