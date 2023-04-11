@@ -1,9 +1,9 @@
-import { initializer as visualizerInit } from "./visualizer";
 import { initializer as volumeInit } from "./volume";
 import Canvas from "./canvas";
 import FileInput from "./fileInput";
 import Media from "./media";
 import Slider from "./slider";
+import Visualizer from './visualizer';
 
 function init() {
 	let drawnCanvas = new Canvas();
@@ -11,7 +11,7 @@ function init() {
 	let media = new Media(drawnCanvas, slider);
 
 	new FileInput(media);
-	visualizerInit(drawnCanvas);
+	new Visualizer(drawnCanvas);
 	volumeInit();
 }
 
