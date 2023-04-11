@@ -1,0 +1,33 @@
+@import './sliders.scss';
+
+.controls {
+  text-align: left;
+  margin-left: 10%;
+}
+
+.btn-outline-secondary {
+  border: none;
+  margin-right: 3px;
+}
+
+.btn-outline-secondary:hover {
+  background: black;
+}
+
+.btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.volIconDown {
+  float: left;
+}
+
+.volIconUp {
+  float: right;
+}
+
+#playbtn,
+#stopbtn {
+  width: 50px;
+}

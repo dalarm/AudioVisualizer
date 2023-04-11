@@ -1,0 +1,15 @@
+.logo {
+  float: left;
+  width: 120px;
+  height: 100px;
+  position: relative;
+}
+
+.logo img {
+  float: top;
+  bottom: 5%;
+  width: 120px;
+  height: 100px;
+  position: absolute;
+  opacity: 0.8;
+}
