@@ -25,35 +25,21 @@ function cleanUp() {
 const playButton = document.getElementById('playbtn');
 const stopButton = document.getElementById('stopbtn');
 
-let classToggler = (className, event) => {
-	const element = event.target;
-
+let classToggler = (className, element) => {
 	// console.log("class toggler called: ", element);
 	element.classList.toggle(className);
 }
 
-/**
- * Used `bind`
- * Wanted to keep a named event function in case I wanted
- * listener removal, while also keeping the ability to pass multiple args
- * into said function
- */
-classToggler = classToggler.bind(this, 'fa-pause');
-
-// First event listeners for visual changes
-playButton.addEventListener('click', classToggler);
-// stopButton.addEventListener('click', classToggler);
-
-// Second event listeners for functionality changes
+// Event listeners for functionality changes
 playButton.addEventListener('click', toggleMusicPlay);
 stopButton.addEventListener('click', toggleMusicStop);
 
-
-// ================================================================
-
-// var musicButton = document.getElementById("playbtn");
-// var stopButton = document.getElementById("stopbtn");
 function toggleMusicPlay() {
+	// Toggle play button icon
+	let playIcon = document.getElementById('play');
+	classToggler('fa-pause', playIcon);
+
+	// Resume the music
 	audioCtx.resume().then(() => {
 		if (!isPlaying) {
 			myMusic.play();
@@ -68,15 +54,24 @@ function toggleMusicPlay() {
 }
 
 function toggleMusicStop() {
+	// Reset play button icon
+	let playIcon = document.getElementById('play');
+	if (playIcon.classList.contains('fa-pause')) {
+		classToggler('fa-pause', playIcon);
+		mySlider.value = 0;
+	}
+
+	// Stop the music
 	audioCtx.suspend().then(() => {
 		myMusic.pause();
 		isPlaying = false;
 		myMusic.currentTime = 0;
 	})
 }
+
 /**
  * NEW STUFF END
- */
+*/
 
 // Slider will update time relative to the position of the slider thumb
 myAudioSlider.value = 100;
