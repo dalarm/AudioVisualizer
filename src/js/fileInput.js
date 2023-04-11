@@ -3,26 +3,24 @@ import { convertTime } from "./time";
 export default class FileInput {
   fileInput;
 
-  constructor(isPlaying) {
-    this.isPlaying = isPlaying;
+  // Passed in media instance to access media class methods, namely to stop music
+  constructor(media) {
     this.fileInput = document.getElementById('input');
+    this.handleInputChange = this.handleInputChange.bind(this, media);
     this.fileInput.addEventListener('change', this.handleInputChange);
   }
 
-  handleInputChange(e) {
+  handleInputChange(media, e) {
+    console.log(e);
+
+    // Stop all media before manipulating input
+    media.toggleMusicStop();
+
     const myMusic = document.getElementById("music");
-    const playButton = document.getElementById("play");
-
-    //  todo: import a function to toggle this so we have one source of truth for isplaying
-    // if (playButton.classList.contains('fa-pause')) {
-    //   playButton.classList.toggle('fa-pause');
-    //   this.isPlaying = false;
-    // }
-
-    myMusic.src = URL.createObjectURL(this.files[0]);
     const file = e.currentTarget.files[0];
-    const songTitle = document.getElementById('songTitle');
+    myMusic.src = URL.createObjectURL(file);
 
+    const songTitle = document.getElementById('songTitle');
     songTitle.textContent = file.name.slice(0,-4);
 
     // The duration function works only if we use the eventHandler loadedmetadata or else
