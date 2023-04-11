@@ -1,3 +1,5 @@
+import { initializer as visualizerInit } from "./visualizer";
+
 /*
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
@@ -173,130 +175,19 @@ var context = canvas.getContext('2d');
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // AudioContext
 var audiosrc = audioCtx.createMediaElementSource(myMusic); // Takes music
 var analyser = audioCtx.createAnalyser(); 	// Create AnalyserNode
-var distortion = audioCtx.createWaveShaper();
-var gainNode = audioCtx.createGain();
-var biquadFilter = audioCtx.createBiquadFilter();
-
-//Get the template
-var designs = document.getElementById("template");
-var selectedDes = designs.options[designs.selectedIndex].value;
+// var distortion = audioCtx.createWaveShaper();
+// var gainNode = audioCtx.createGain();
+// var biquadFilter = audioCtx.createBiquadFilter();
 
 //Setting up the array to store data from sound file.
-
 WIDTH = canvas.width;
 HEIGHT = canvas.height;
 
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
-// console.log(bufferLength);
 
 context.clearRect(0, 0, WIDTH, HEIGHT);
-
 audiosrc.connect(analyser);
-
 analyser.connect(audioCtx.destination);
-if (selectedDes == 'wave')
-	wvisualize();
-else if (selectedDes == 'bars')
-	bvisualize();
 
-
-/*
- * Template Designs
- */
-
-function templates() {
-
-	designs = document.getElementById("template");
-	selectedDes = designs.options[designs.selectedIndex].value;
-
-	if (selectedDes == 'wave') {
-		wvisualize();
-	}
-	else if (selectedDes == 'bars') {
-		bvisualize();
-	}
-}
-
-
-/*
- * Visualizer function for waveform
- */
-
-function wvisualize() {
-	function draw() {
-		var colors = document.getElementById("color");
-		var selectedCol = colors.options[colors.selectedIndex].value;
-		drawVisual = requestAnimationFrame(draw);
-
-		analyser.getByteTimeDomainData(dataArray); // get waveform data and put into array
-
-		// Set canvas properties
-		context.fillStyle = 'rgb(200, 200, 200)';
-		context.fillRect(0, 0, WIDTH, HEIGHT);
-		// Set waveform properties
-		context.lineWidth = 2;
-		//context.strokeStyle = 'rgb(0, 0, 0)';
-		context.strokeStyle = selectedCol;
-		context.beginPath();
-
-		var sliceWidth = WIDTH * 1.0 / bufferLength;
-		var x = 0;
-
-		for (var i = 0; i < bufferLength; i++) {
-
-			var v = dataArray[i] / 128.0;
-			var y = v * HEIGHT / 2;
-
-			if (i === 0) {
-				context.moveTo(x, y);
-			} else {
-				context.lineTo(x, y);
-			}
-
-			x += sliceWidth;
-		}
-
-		context.lineTo(canvas.width, canvas.height / 2);
-		context.stroke();
-
-	};
-
-	draw();
-}
-
-
-/*
- * Visualizer for bars
- */
-
-function bvisualize() {
-	function draw() {
-		var colors = document.getElementById("color");
-		var selectedCol = colors.options[colors.selectedIndex].value;
-		var drawVisual = requestAnimationFrame(draw);
-
-		analyser.getByteFrequencyData(dataArray);
-
-		// Set canvas properties
-		context.fillStyle = '#002D3C';
-		context.fillRect(0, 0, WIDTH, HEIGHT);
-
-		var barWidth = (WIDTH / bufferLength) * 3.5;
-		var barHeight;
-
-		// Set bar color property
-		//context.fillStyle = '#00CCFF';
-		context.fillStyle = selectedCol;
-		// Render the bars
-		for (var i = 0; i < bufferLength; i++) {
-			x = i * 2;
-			barHeight = dataArray[i];
-			context.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight);
-
-			x += barWidth + 1;
-		}
-	}
-	draw();
-
-}
+visualizerInit(analyser, bufferLength, dataArray, context, canvas);
