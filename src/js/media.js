@@ -15,13 +15,6 @@ export default class Media {
 		stopButton.addEventListener('click', this.toggleMusicStop);
 	}
 
-	updateSlider() {
-		const myMusic = document.getElementById("music");
-		const updateSliderTo = myMusic.currentTime / myMusic.duration;
-		// todo: refactor mySlider and reference it here
-		// mySlider.value = updateSliderTo;
-	}
-
 	toggleMusicPlay = (audioContext) => {
 		const myMusic = document.getElementById("music");
 		// console.log(audioContext)
@@ -34,7 +27,6 @@ export default class Media {
 			if (!this.isPlaying) {
 				myMusic.play();
 				this.isPlaying = true;
-				setInterval(this.updateSlider, 3000);
 				setInterval(setCurrentTime, 250);
 			} else {
 				myMusic.pause();
@@ -50,8 +42,6 @@ export default class Media {
 		let playIcon = document.getElementById('play');
 		if (playIcon.classList.contains('fa-pause')) {
 			playIcon.classList.remove('fa-pause');
-			// todo: refactor mySlider and reference it here
-			// mySlider.value = 0;
 		}
 
 		// Stop the music

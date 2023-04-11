@@ -3,20 +3,16 @@ import { initializer as volumeInit } from "./volume";
 import Canvas from "./canvas";
 import FileInput from "./fileInput";
 import Media from "./media";
+import Slider from "./slider";
 
-let myMusic = document.getElementById("music");
-let mySlider = document.getElementById("songSlider");
+function init() {
+	let drawnCanvas = new Canvas();
+	let slider = new Slider()
+	let media = new Media(drawnCanvas, slider);
 
-// Slider will update time relative to the position of the slider thumb
-mySlider.value = 0;
-
-function seekSong() {
-	seekTo = myMusic.duration * mySlider.value;
-	myMusic.currentTime = seekTo;
+	new FileInput(media);
+	visualizerInit(drawnCanvas);
+	volumeInit();
 }
 
-let drawnCanvas = new Canvas(myMusic);
-let media = new Media(drawnCanvas);
-new FileInput(media);
-visualizerInit(drawnCanvas);
-volumeInit();
+init();

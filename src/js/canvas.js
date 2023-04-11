@@ -6,8 +6,9 @@ export default class Canvas {
   bufferLength;
   dataArray;
 
-  constructor(music) {
+  constructor() {
     let canvas = document.querySelector("canvas");
+    let music = document.getElementById("music");
 
     this.context = canvas.getContext('2d');
 
