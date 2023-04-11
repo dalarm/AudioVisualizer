@@ -138,10 +138,6 @@ function updateSlider() {
 	mySlider.value = updateSliderTo;
 }
 
-function adjustVolume() {
-	myMusic.volume = document.getElementById("audioSlider").value;
-}
-
 /* * * * *
  * Canvas *
  * * * * *
