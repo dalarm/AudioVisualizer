@@ -1,3 +1,5 @@
+import { convertTime } from "./time";
+
 export default class FileInput {
   fileInput;
 
@@ -27,13 +29,12 @@ export default class FileInput {
     // it returns NaN when we use .duration.
     // .duration only returns total amount of seconds, so I calculated that using a function i made above.
 
-    // todo: import converttime function after refactoring time functions
-    // myMusic.addEventListener('loadedmetadata', () => {
-    //   var time = myMusic.duration;
-    //   var timer = document.getElementById("duration");
-    //   time = this.convertTime(time);
-    //   timer.innerHTML = time;
-    // });
+    myMusic.addEventListener('loadedmetadata', () => {
+      var time = myMusic.duration;
+      var timer = document.getElementById("duration");
+      time = convertTime(time);
+      timer.innerHTML = time;
+    });
 
     // not really needed in this exact case, but since it is really important in other cases,
     // don't forget to revoke the blobURI when you don't need it
