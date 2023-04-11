@@ -6,7 +6,9 @@ export default class Canvas {
   bufferLength;
   dataArray;
 
-  constructor(canvas, music) {
+  constructor(music) {
+    let canvas = document.querySelector("canvas");
+
     this.context = canvas.getContext('2d');
 
     // Extract data from audio source with AnalyserNode

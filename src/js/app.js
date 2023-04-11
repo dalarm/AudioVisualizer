@@ -4,7 +4,6 @@ import Canvas from "./canvas";
 import FileInput from "./fileInput";
 import Media from "./media";
 
-let canvas = document.querySelector("canvas");
 let myMusic = document.getElementById("music");
 let mySlider = document.getElementById("songSlider");
 
@@ -16,8 +15,8 @@ function seekSong() {
 	myMusic.currentTime = seekTo;
 }
 
-let drawnCanvas = new Canvas(canvas, myMusic);
+let drawnCanvas = new Canvas(myMusic);
 let media = new Media(drawnCanvas);
 new FileInput(media);
-visualizerInit(drawnCanvas, canvas);
+visualizerInit(drawnCanvas);
 volumeInit();

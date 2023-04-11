@@ -19,12 +19,13 @@ let handleOnChange = (drawnCanvas, canvas) => {
 }
 
 let template = document.getElementById('template');
-function initializer(analyser, bufferLength, dataArray, context, canvas) {
+function initializer(drawnCanvas) {
+	let canvas = document.querySelector("canvas");
 	// Run once to set the canvas's default visuals
-	handleOnChange(analyser, bufferLength, dataArray, context, canvas);
+	handleOnChange(drawnCanvas, canvas);
 
 	// Bind for easy cleanup later
-  handleOnChange = handleOnChange.bind(this, analyser, bufferLength, dataArray, context, canvas);
+  handleOnChange = handleOnChange.bind(this, drawnCanvas, canvas);
   template.addEventListener('change', handleOnChange);
 }
 
