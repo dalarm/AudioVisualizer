@@ -178,3 +178,8 @@ body i {
 .volIconUp {
     float: right;
 }
+
+#playbtn,
+#stopbtn {
+    width: 50px;
+}

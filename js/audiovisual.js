@@ -5,35 +5,76 @@ ctx.fillStyle = 'green';
 ctx.fillRect(10, 10, 100, 100);
 */
 
-/* * * * * *
- * New code *
- * * * * * *
+/**
+ * NEW STUFF START
  */
+let canvas = document.querySelector("canvas");
+let myMusic = document.getElementById("music");
+let mySlider = document.getElementById("songSlider");
+let myAudioSlider = document.getElementById("audioSlider");
+let isPlaying = false;
+let seconds, minutes, diff, total, currentTime;
 
-$(document).ready(function(){
-	$('.fa-play').click(function() {
-		$(this).toggleClass('fa-pause');
-	});
-});
+function cleanUp() {
+	playButton.removeEventListener('click', classToggler);
+	stopButton.removeEventListener('click', classToggler);
+}
 
-$(document).ready(function(){
-	$('.fa-stop').click(function() {
-		var playButton = document.getElementById("play");
-		if(($(playButton).hasClass("fa-pause")) == true){
-			$(playButton).toggleClass('fa-pause');
+const playButton = document.getElementById('playbtn');
+const stopButton = document.getElementById('stopbtn');
+
+let classToggler = (className, event) => {
+	const element = event.target;
+
+	// console.log("class toggler called: ", element);
+	element.classList.toggle(className);
+}
+
+/**
+ * Used `bind`
+ * Wanted to keep a named event function in case I wanted
+ * listener removal, while also keeping the ability to pass multiple args
+ * into said function
+ */
+classToggler = classToggler.bind(this, 'fa-pause');
+
+// First event listeners for visual changes
+playButton.addEventListener('click', classToggler);
+// stopButton.addEventListener('click', classToggler);
+
+// Second event listeners for functionality changes
+playButton.addEventListener('click', toggleMusicPlay);
+stopButton.addEventListener('click', toggleMusicStop);
+
+
+// ================================================================
+
+// var musicButton = document.getElementById("playbtn");
+// var stopButton = document.getElementById("stopbtn");
+function toggleMusicPlay() {
+	audioCtx.resume().then(() => {
+		if (!isPlaying) {
+			myMusic.play();
+			isPlaying = true;
+			setInterval(updateSlider, 3000);
+			setInterval(setCurrentTime, 250);
+		} else {
+			myMusic.pause();
+			isPlaying = false;
 		}
-		mySlider.value = 0;
-	});
-});
+	})
+}
 
-var canvas = document.querySelector("canvas");
-var musicButton = document.getElementById("playbtn");
-var stopButton = document.getElementById("stopbtn");
-var myMusic = document.getElementById("music");
-var mySlider = document.getElementById("songSlider");
-var myAudioSlider = document.getElementById("audioSlider");
-var isPlaying = false;
-var seconds, minutes, diff, total, currentTime;
+function toggleMusicStop() {
+	audioCtx.suspend().then(() => {
+		myMusic.pause();
+		isPlaying = false;
+		myMusic.currentTime = 0;
+	})
+}
+/**
+ * NEW STUFF END
+ */
 
 // Slider will update time relative to the position of the slider thumb
 myAudioSlider.value = 100;
@@ -74,10 +115,10 @@ function convertTime(secs) {
 
 input.onchange = function (e) {
 	var playButton = document.getElementById("play");
-		if(($(playButton).hasClass("fa-pause")) == true){
-			$(playButton).toggleClass('fa-pause');
-			isPlaying = false;
-		}
+	if(($(playButton).hasClass("fa-pause")) == true){
+		$(playButton).toggleClass('fa-pause');
+		isPlaying = false;
+	}
 	myMusic.src = URL.createObjectURL(this.files[0]);
 	var file = e.currentTarget.files[0];
 	$("#songTitle").text((file.name.slice(0,-4)));
@@ -112,30 +153,7 @@ function setCurrentTime(currentTime) {
 	timer.innerHTML = current;
 }
 
-function toggleMusic() {
-	musicButton.onclick = function () {
-		audioCtx.resume().then(() => {
-			if (!isPlaying) {
-				myMusic.play();
-				isPlaying = true;
-				setInterval(updateSlider, 3000);
-				setInterval(setCurrentTime, 250);
-			}
-			else {
-				myMusic.pause();
-				isPlaying = false;
-			}
-		})
-	}
 
-	stopButton.onclick = function () {
-		audioCtx.suspend().then(() => {
-			myMusic.pause();
-			isPlaying = false;
-			myMusic.currentTime = 0;
-		})
-	}
-}
 function updateSlider() {
 	updateSliderTo = myMusic.currentTime / myMusic.duration;
 	mySlider.value = updateSliderTo;
@@ -171,7 +189,7 @@ HEIGHT = canvas.height;
 
 var bufferLength = analyser.frequencyBinCount;
 var dataArray = new Uint8Array(bufferLength);
-console.log(bufferLength);
+// console.log(bufferLength);
 
 context.clearRect(0, 0, WIDTH, HEIGHT);
 
@@ -283,6 +301,3 @@ function bvisualize() {
 	draw();
 
 }
-
-
-toggleMusic();
