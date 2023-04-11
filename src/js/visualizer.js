@@ -4,7 +4,8 @@
  * Template Designs
  */
 
-let handleOnChange = (analyser, bufferLength, dataArray, context, canvas) => {
+let handleOnChange = (drawnCanvas, canvas) => {
+	const { analyser, bufferLength, dataArray, context } = drawnCanvas
 	console.log('onchange handler from visualizer')
 	designs = document.getElementById("template");
 	selectedDes = designs.options[designs.selectedIndex].value;
@@ -37,6 +38,7 @@ function cleanup() {
 
 function wvisualize(analyser, bufferLength, dataArray, context, canvas) {
 	function draw() {
+		const { width:WIDTH, height:HEIGHT } = canvas;
 		var colors = document.getElementById("color");
 		var selectedCol = colors.options[colors.selectedIndex].value;
 		drawVisual = requestAnimationFrame(draw);
@@ -84,6 +86,8 @@ function wvisualize(analyser, bufferLength, dataArray, context, canvas) {
 
 function bvisualize(analyser, bufferLength, dataArray, context, canvas) {
 	function draw() {
+		const { width:WIDTH, height:HEIGHT } = canvas;
+
 		var colors = document.getElementById("color");
 		var selectedCol = colors.options[colors.selectedIndex].value;
 		var drawVisual = requestAnimationFrame(draw);

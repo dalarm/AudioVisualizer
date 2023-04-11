@@ -1,60 +1,12 @@
 import { initializer as visualizerInit } from "./visualizer";
+import Canvas from "./canvas";
 
-/**
- * NEW STUFF START
- */
 let canvas = document.querySelector("canvas");
 let myMusic = document.getElementById("music");
 let mySlider = document.getElementById("songSlider");
 let myAudioSlider = document.getElementById("audioSlider");
 let isPlaying = false;
 let seconds, minutes, diff, total, currentTime;
-
-const playButton = document.getElementById('playbtn');
-const stopButton = document.getElementById('stopbtn');
-
-// Event listeners for functionality changes
-playButton.addEventListener('click', toggleMusicPlay);
-stopButton.addEventListener('click', toggleMusicStop);
-
-function toggleMusicPlay() {
-	// Toggle play button icon
-	let playIcon = document.getElementById('play');
-	playIcon.classList.toggle('fa-pause');
-
-	// Resume the music
-	audioCtx.resume().then(() => {
-		if (!isPlaying) {
-			myMusic.play();
-			isPlaying = true;
-			setInterval(updateSlider, 3000);
-			setInterval(setCurrentTime, 250);
-		} else {
-			myMusic.pause();
-			isPlaying = false;
-		}
-	})
-}
-
-function toggleMusicStop() {
-	// Reset play button icon
-	let playIcon = document.getElementById('play');
-	if (playIcon.classList.contains('fa-pause')) {
-		playIcon.classList.remove('fa-pause');
-		mySlider.value = 0;
-	}
-
-	// Stop the music
-	audioCtx.suspend().then(() => {
-		myMusic.pause();
-		isPlaying = false;
-		myMusic.currentTime = 0;
-	})
-}
-
-/**
- * NEW STUFF END
-*/
 
 // Slider will update time relative to the position of the slider thumb
 myAudioSlider.value = 100;
@@ -138,30 +90,50 @@ function updateSlider() {
 	mySlider.value = updateSliderTo;
 }
 
-/* * * * *
- * Canvas *
- * * * * *
- */
+let drawnCanvas = new Canvas(canvas, myMusic);
+visualizerInit(drawnCanvas, canvas);
 
-var context = canvas.getContext('2d');
+// Media controls
+const playButton = document.getElementById('playbtn');
+const stopButton = document.getElementById('stopbtn');
+let toggleMusicPlay = (audioContext) => {
+	console.log(audioContext)
+	// Toggle play button icon
+	let playIcon = document.getElementById('play');
+	playIcon.classList.toggle('fa-pause');
 
-// Extract data from audio source with AnalyserNode
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // AudioContext
-var audiosrc = audioCtx.createMediaElementSource(myMusic); // Takes music
-var analyser = audioCtx.createAnalyser(); 	// Create AnalyserNode
-// var distortion = audioCtx.createWaveShaper();
-// var gainNode = audioCtx.createGain();
-// var biquadFilter = audioCtx.createBiquadFilter();
+	// Resume the music
+	audioContext.resume().then(() => {
+		if (!isPlaying) {
+			myMusic.play();
+			isPlaying = true;
+			setInterval(updateSlider, 3000);
+			setInterval(setCurrentTime, 250);
+		} else {
+			myMusic.pause();
+			isPlaying = false;
+		}
+	})
+}
+let toggleMusicStop = (audioContext) => {
+	// Reset play button icon
+	let playIcon = document.getElementById('play');
+	if (playIcon.classList.contains('fa-pause')) {
+		playIcon.classList.remove('fa-pause');
+		mySlider.value = 0;
+	}
 
-//Setting up the array to store data from sound file.
-WIDTH = canvas.width;
-HEIGHT = canvas.height;
+	// Stop the music
+	audioContext.suspend().then(() => {
+		myMusic.pause();
+		isPlaying = false;
+		myMusic.currentTime = 0;
+	})
+}
 
-var bufferLength = analyser.frequencyBinCount;
-var dataArray = new Uint8Array(bufferLength);
+toggleMusicPlay = toggleMusicPlay.bind(this, drawnCanvas.audioContext);
+toggleMusicStop = toggleMusicStop.bind(this, drawnCanvas.audioContext);
 
-context.clearRect(0, 0, WIDTH, HEIGHT);
-audiosrc.connect(analyser);
-analyser.connect(audioCtx.destination);
-
-visualizerInit(analyser, bufferLength, dataArray, context, canvas);
+// Event listeners for functionality changes
+playButton.addEventListener('click', toggleMusicPlay);
+stopButton.addEventListener('click', toggleMusicStop);
