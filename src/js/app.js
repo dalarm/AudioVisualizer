@@ -138,7 +138,6 @@ input.onchange = function (e) {
 	}
 }
 
-
 function setCurrentTime(currentTime) {
 	/*	var converted;
 		currentTime += 1;
