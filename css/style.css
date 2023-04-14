@@ -1,0 +1,174 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 2em;
+    background-color: gray;
+}
+
+body i {
+    font-family: 'FontAwesome';
+}
+
+/* Player Container */
+
+.player-container {
+    width: 450px;
+    height: 250px;
+    box-shadow: 2px 2px 6px 2px #eee;
+    color: #ffffff;
+    font-size: 12px;
+    background: black;
+}
+
+/* Logo */
+
+.logo {
+    float: left;
+    width: 120px;
+    height: 100px;
+    position: relative;
+}
+
+.logo img {
+    float: top;
+    bottom: 5%;
+    width: 120px;
+    height: 100px;
+    position: absolute;
+    opacity: 0.8;
+}
+
+/* Player */
+
+.player {
+    float: right;
+    margin-top: 1em;
+    margin-right: 1em;
+}
+
+/* Song Title */
+#songTitle {
+    display: block;
+    position: relative;
+    padding: 0;
+    margin-bottom: 5%;
+    width: 200px;
+    height: 15px;
+    overflow: hidden;
+}
+
+.song-title {
+    width: 50px;
+    padding: 5px 0 5px 0;
+}
+
+/* Sliders */
+.slider {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 300px;
+    height: 20px;
+    float: left;
+    margin-left: 0;
+    background: darkgray;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 20px;
+    width: 2px;
+    background: #002D3C;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.slider::slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 20px;
+    width: 2px;
+    background: #002D3C;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.volumeBar {
+    margin-right: 10%;
+}
+
+.audioSlider {
+    --thumb-size: 0;
+    width: 240px;
+}
+
+.audioSlider::-webkit-slider-thumb {
+    width: calc(15% + 70% * (1 - var(--volume)));
+    height: 100%;
+    background-color: #333;
+    border: none;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/*Design Options*/
+#color {
+    position: relative;
+    float: right;
+}
+
+#template {
+    position: relative;
+    float: right;
+}
+
+/* Time */
+
+.time {
+    float: left;
+    font-size: 10px;
+}
+
+.duration {
+    float: right;
+    font-size: 10px;
+}
+
+/* Canvas */
+
+#Canvas {
+    width: 450px;
+    height: 100px;
+    border: 1px solid black;
+}
+
+
+/* Controls */
+
+.controls {
+    text-align: left;
+    margin-left: 10%;
+}
+
+.btn-outline-secondary {
+    border: none;
+    margin-right: 3px;
+}
+
+.btn-outline-secondary:hover {
+    background: black;
+}
+
+.btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.volIconDown {
+    float: left;
+}
+
+.volIconUp {
+    float: right;
+}

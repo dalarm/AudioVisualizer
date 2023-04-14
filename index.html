@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: " en-US " }}">
+
+<head>
+	<title>Audio Visualizer Demo</title>
+
+	<!-- Meta tags -->
+	<meta name="referrer" content="origin" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+		integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+
+</head>
+
+<body>
+
+	<!-- Change the .mp3 to a file local to your computer -->
+	<input type="file" id="input" />
+	<!-- Specify hard-coded path -->
+	<audio id="music" src="You.mp3"></audio>
+	<!-- <audio id="music"></audio> -->
+
+	<!-- Player Container -->
+	<div class="player-container">
+		<!-- Canvas -->
+		<div id=canvasContainer>
+			<canvas id="Canvas"></canvas>
+		</div>
+
+		<!-- Logo -->
+		<div class="logo">
+			<img src="images/speakers.jpeg" alt="speakers" />
+		</div>
+
+		<!-- Player -->
+		<div class="player">
+			<select id="color" name="color" onchange="draw()">
+				<option value="red">Red</option>
+				<option value="blue">Blue</option>
+				<option value="black">Black</option>
+			</select>
+
+			<select id="template" name="template" onchange="templates()">
+				<option value="bars">Bars</option>
+				<option value="wave">Wave</option>
+			</select>
+
+			<div id="songTitle" class="song-title">song title</div>
+			<input type="range" id="songSlider" class="slider" min="0" max="1" step="0.01" onchange="seekSong()" />
+			<div>
+				<div id="currentTime" class="time">0:00</div>
+				<div id="duration" class="duration">0:00</div>
+			</div>
+
+			<!-- Controls -->
+			<div class="controls">
+				<div class="btn-group">
+					<div id="playbtn">
+						<i id="play" class="btn btn-outline-secondary fa fa-play" aria-hidden="true"></i>
+					</div>
+					<div id="stopbtn">
+						<i class="btn btn-outline-secondary fa fa-stop" aria-hidden="true"></i>
+					</div>
+				</div>
+				<div class="volumeBar">
+					<i class="volIconDown fa fa-volume-off" aria-hidden="true"></i>
+					<i class="volIconUp fa fa-volume-up" aria-hidden="true"></i>
+					<input type="range" id="audioSlider" class="audioSlider" min="0" max="1" step="0.01"
+						ondrag="adjustVolume(audio)" onchange="adjustVolume(audio)" />
+					<audio id="audio" src="example.mp3"></audio>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/audiovisual.js"></script>
+
+
+</html>
